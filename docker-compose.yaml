@@ -50,7 +50,7 @@ services:
       - oraibtc-monitoring
 
   alertmanager:
-    image: prom/alertmanager:v0.21.0
+    image: prom/alertmanager:latest
     container_name: alertmanager
     volumes:
       - ./alertmanager:/etc/alertmanager
