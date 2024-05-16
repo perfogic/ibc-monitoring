@@ -23,7 +23,7 @@ scrape_configs:
     scrape_interval: 5s
     scheme: https
     static_configs:
-      - targets: ["oraibtc-metrics.perfogic.store"]
+      - targets: ["metrics.perfogic.store"]
 
   - job_name: 'nodeexporter'
     scrape_interval: 6s
