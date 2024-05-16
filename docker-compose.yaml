@@ -3,14 +3,13 @@ version: "3"
 networks:
   loki:
     driver: bridge
-  prometheus:
-    driver: bridge
-  grafana:
+  oraibtc-monitoring:
     driver: bridge
 
 services:
   loki:
     image: grafana/loki:2.6.0
+    container_name: loki
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -19,6 +18,7 @@ services:
 
   promtail:
     image: grafana/promtail:2.6.1
+    container_name: promtail
     volumes:
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
@@ -27,18 +27,60 @@ services:
 
   grafana:
     image: grafana/grafana:8.4.5
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
     ports:
       - "3000:3000"
     networks:
       - loki
-      - prometheus
+      - oraibtc-monitoring
 
   prometheus:
     image: prom/prometheus:v2.38.0
+    container_name: prometheus
     ports:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command: --config.file=/etc/prometheus/prometheus.yml
     networks:
-      - prometheus
+      - oraibtc-monitoring
+
+  alertmanager:
+    image: prom/alertmanager:v0.21.0
+    container_name: alertmanager
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+    command:
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--storage.path=/alertmanager"
+    restart: unless-stopped
+    ports:
+      - 9093:9093
+    networks:
+      - oraibtc-monitoring
+    labels:
+      org.label-schema.group: "monitoring"
+
+  nodeexporter:
+    image: prom/node-exporter:v1.3.1
+    container_name: nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.rootfs=/rootfs"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)"
+    restart: unless-stopped
+    ports:
+      - 9101:9100
+    networks:
+      - oraibtc-monitoring
+    labels:
+      org.label-schema.group: "monitoring"
