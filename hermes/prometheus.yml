@@ -21,10 +21,8 @@ rule_files:
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: "hermes"
-
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
+    scrape_interval: 5s
     scheme: https
-
     static_configs:
       - targets: ["oraibtc-metrics.perfogic.store"]
+    
