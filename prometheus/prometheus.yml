@@ -25,6 +25,11 @@ scrape_configs:
     static_configs:
       - targets: ["metrics.perfogic.store"]
 
+  - job_name: "oraibtc"
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["139.180.220.229:26660"]
+
   - job_name: 'nodeexporter'
     scrape_interval: 6s
     static_configs:
