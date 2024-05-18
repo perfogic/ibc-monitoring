@@ -184,109 +184,6 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "Indicates if you have enough funds on your wallet. Hermes can not relay without spending gas. Thus, it is important to set alarms which monitor the gas.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "fillOpacity": 80,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            }
-          },
-          "decimals": 0,
-          "mappings": [],
-          "min": -1,
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byType",
-              "options": "time"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "hidden"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 0,
-        "y": 17
-      },
-      "id": 1,
-      "options": {
-        "barRadius": 0,
-        "barWidth": 0.97,
-        "groupWidth": 0.7,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "orientation": "horizontal",
-        "showValue": "auto",
-        "stacking": "none",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        },
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 100
-      },
-      "pluginVersion": "9.0.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "wallet_balance{job=\"hermes\"}",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "{{chain}}: {{account}} ({{instance}})",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Wallet balances",
-      "transformations": [],
-      "transparent": true,
-      "type": "barchart"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
       "description": "Indicates if clients are getting updated.",
       "fieldConfig": {
         "defaults": {
@@ -340,8 +237,8 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 8,
+        "w": 12,
+        "x": 0,
         "y": 17
       },
       "id": 52,
@@ -430,8 +327,8 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 16,
+        "w": 12,
+        "x": 12,
         "y": 17
       },
       "id": 40,
@@ -520,7 +417,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
+        "w": 12,
         "x": 0,
         "y": 24
       },
@@ -610,8 +507,8 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 8,
+        "w": 12,
+        "x": 12,
         "y": 24
       },
       "id": 42,
@@ -642,97 +539,6 @@
         }
       ],
       "title": "Current number of workers",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "Indicates the latency rate for all transactions confirmed by each chain.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 24
-      },
-      "id": 35,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "expr": "histogram_quantile(0.95, sum by(le, chain) (rate(tx_latency_confirmed_bucket[5m])))",
-          "legendFormat": "{{chain}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "95th quantile of tx_latency_confirmed rate over 5 minutes",
       "type": "timeseries"
     },
     {
@@ -1136,7 +942,7 @@
           "refId": "A"
         }
       ],
-      "title": "Pending packet per path",
+      "title": "total number of send_packets_events on backlog_size",
       "transformations": [],
       "type": "timeseries"
     },
@@ -1221,13 +1027,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "delta(receive_packets_confirmed_total{job=\"hermes\"}[1m])",
+          "expr": "delta(receive_packets_confirmed_total{job=\"hermes\"}[5m])",
           "legendFormat": "{{src_chain}}:{{src_channel}}/{{src_port}} ({{instance}})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "receive_packets_confirmed over 1 minute",
+      "title": "receive_packets_confirmed over 5 minute",
       "type": "timeseries"
     },
     {
@@ -1311,13 +1117,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "delta(timeout_packets_confirmed_total{job=\"hermes\"}[1m])",
+          "expr": "delta(timeout_packets_confirmed_total{job=\"hermes\"}[5m])",
           "legendFormat": "{{src_chain}}:{{src_channel}}/{{src_port}} ({{instance}})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "timeout_packets_confirmed over 1 minute",
+      "title": "timeout_packets_confirmed over 5 minute",
       "type": "timeseries"
     },
     {
@@ -1401,13 +1207,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "delta(acknowledgment_packets_confirmed_total{job=\"hermes\"}[1m])",
+          "expr": "delta(acknowledgment_packets_confirmed_total{job=\"hermes\"}[5m])",
           "legendFormat": "{{src_chain}}:{{src_channel}}/{{src_port}} ({{instance}})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "acknowledgment_packets_confirmed over 1 minute",
+      "title": "acknowledgment_packets_confirmed over 5 minute",
       "type": "timeseries"
     },
     {
@@ -1514,14 +1320,14 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "delta(send_packet_events_total{job=\"hermes\"}[1m])",
+          "expr": "delta(send_packet_events_total{job=\"hermes\"}[5m])",
           "interval": "",
           "legendFormat": "{{chain}}:{{channel}}/{{port}}-{{counterparty}} ({{instance}})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "send_packets_events over 1 minute",
+      "title": "send_packets_events over 5 minute",
       "type": "timeseries"
     },
     {
@@ -1605,13 +1411,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "delta(acknowledgement_events_total{job=\"hermes\"}[1m])",
+          "expr": "delta(acknowledgement_events_total{job=\"hermes\"}[5m])",
           "legendFormat": "{{chain}}:{{channel}}/{{port}}-{{counterparty}} ({{instance}})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "acknowledgement_events over 1 minute",
+      "title": "acknowledgement_events over 5 minute",
       "type": "timeseries"
     },
     {
@@ -1695,13 +1501,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "delta(timeout_events_total{job=\"hermes\"}[1m])",
+          "expr": "delta(timeout_events_total{job=\"hermes\"}[5m])",
           "legendFormat": "{{chain}}:{{channel}}/{{port}}-{{counterparty}} ({{instance}})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "timeout_events over 1 minute",
+      "title": "timeout_events over 5 minute",
       "type": "timeseries"
     },
     {
@@ -2072,13 +1878,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "delta(cleared_acknowledgment_events_total{job=\"hermes\"}[1m])",
+          "expr": "delta(cleared_acknowledgment_events_total{job=\"hermes\"}[5m])",
           "legendFormat": "{{chain}}:{{channel}}/{{port}}-{{counterparty}} ({{instance}})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "cleared_acknowledgment_events over 1 minute",
+      "title": "cleared_acknowledgment_events over 5 minute",
       "type": "timeseries"
     },
     {
@@ -2162,13 +1968,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "delta(cleared_send_packet_events_total{job=\"hermes\"}[1m])",
+          "expr": "delta(cleared_send_packet_events_total{job=\"hermes\"}[5m])",
           "legendFormat": "{{chain}}:{{channel}}/{{port}}-{{counterparty}} ({{instance}})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "cleared_send_packet_events over 1 minute",
+      "title": "cleared_send_packet_events over 5 minute",
       "type": "timeseries"
     },
     {
