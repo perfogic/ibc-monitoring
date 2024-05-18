@@ -10,6 +10,25 @@ groups:
       summary: "Monitor service non-operational"
       description: "Service {{ $labels.instance }} is down."
 
+- name: ibc-monitoring
+  rules:
+  - alert: Oraichain
+    expr: 'delta(backlog_oldest_sequence{chain="Oraichain",counterparty="oraibtc-testnet-1"}[1m]) == 0 and backlog_oldest_sequence{chain="Oraichain",counterparty="oraibtc-testnet-1"} > 0'
+    for: 5s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Ibc Monitoring Oraichain"
+      description: "Service {{ $labels.instance }} is down."
+  - alert: oraibtc-testnet-1
+    expr: 'delta(backlog_oldest_sequence{chain="oraibtc-testnet-1",counterparty="Oraichain"}[1m]) == 0 and backlog_oldest_sequence{chain="oraibtc-testnet-1",counterparty="Oraichain"} > 0'
+    for: 5s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Ibc Monitoring Oraichain oraibtc-testnet-1"
+      description: "Service {{ $labels.instance }} is down."
+
 - name: host
   rules:
   - alert: high_cpu_load
