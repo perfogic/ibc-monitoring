@@ -14,20 +14,20 @@ groups:
   rules:
   - alert: Oraichain
     expr: 'delta(backlog_oldest_sequence{chain="Oraichain",counterparty="oraibtc-testnet-1"}[1m]) == 0 and backlog_oldest_sequence{chain="Oraichain",counterparty="oraibtc-testnet-1"} > 0'
-    for: 5s
+    for: 86400s
     labels:
       severity: critical
     annotations:
       summary: "Ibc Monitoring Oraichain"
-      description: "Service {{ $labels.instance }} is down."
+      description: "Last sequence on Oraichain is not cleared"
   - alert: oraibtc-testnet-1
     expr: 'delta(backlog_oldest_sequence{chain="oraibtc-testnet-1",counterparty="Oraichain"}[1m]) == 0 and backlog_oldest_sequence{chain="oraibtc-testnet-1",counterparty="Oraichain"} > 0'
-    for: 5s
+    for: 86400s
     labels:
       severity: critical
     annotations:
-      summary: "Ibc Monitoring Oraichain oraibtc-testnet-1"
-      description: "Service {{ $labels.instance }} is down."
+      summary: "Ibc Monitoring oraibtc-testnet-1"
+      description: "Last sequence on oraibtc-testnet-1 is not cleared"
 
 - name: host
   rules:
