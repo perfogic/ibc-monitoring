@@ -188,7 +188,7 @@ groups:
       severity: warning
     annotations:
       summary: Node context switching high (Instance:{{ $labels.instance }})
-      description: CPU core context switching rate is x{{ $labels.value }} than normal at the last 5 minutes.
+      description: CPU core context switching rate is x{{ $value }} than normal at the last 5 minutes.
       
   - alert: HostSwapIsFillingUp
     expr: (1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80
