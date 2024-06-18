@@ -25,17 +25,17 @@ scrape_configs:
     scrape_interval: 5s
     scheme: https
     static_configs:
-      - targets: ["metrics.perfogic.store"]
+      - targets: ["hermes.perfogic.store"]
 
   - job_name: "oraibtc"
     scrape_interval: 5s
     static_configs:
-      - targets: ["139.180.220.229:26660"]
+      - targets: ["45.76.184.60:26660"]
 
   - job_name: 'nodeexporter'
     scrape_interval: 6s
     static_configs:
-      - targets: ['nodeexporter:9100']
+      - targets: ["exporter.perfogic.store"]
 
   - job_name: 'prometheus'
     scrape_interval: 6s
